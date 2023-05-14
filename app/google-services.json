@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "148159903276",
+    "project_id": "respitoryfinal",
+    "storage_bucket": "respitoryfinal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148159903276:android:c850a0625b925a29c94389",
+        "android_client_info": {
+          "package_name": "com.example.respitoryfinal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "148159903276-vbrkg4i1l5u2u0u09mkuqqc76meth5le.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_mAYU9v5Zr9hRtj6fZcOx80Q6r4h4gG0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "148159903276-vbrkg4i1l5u2u0u09mkuqqc76meth5le.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
