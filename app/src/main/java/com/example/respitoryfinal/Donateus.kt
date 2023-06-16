@@ -1,9 +1,11 @@
 package com.example.respitoryfinal
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.respitoryfinal.databinding.ActivityDonationBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -11,6 +13,12 @@ class Donateus : AppCompatActivity() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var binding: ActivityDonationBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setTitle("Donate Us")
+
+        val blueColor = ContextCompat.getColor(this, R.color.blue)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(blueColor))
         super.onCreate(savedInstanceState)
         binding = ActivityDonationBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -25,15 +33,17 @@ class Donateus : AppCompatActivity() {
         binding.donateType.setAdapter(donationAdapter)
         firestore = FirebaseFirestore.getInstance()
         binding.updateButtonID.setOnClickListener {
-            if(binding.updateDistrictET==null && binding.updateContactNumberET==null && binding.updateEmailProfileEt==null && binding.updateNameProfileEt==null
-                &&binding.donateType==null){
+            if(binding.updateDistrictET==null || binding.updateContactNumberET==null || binding.updateEmailProfileEt==null || binding.updateNameProfileEt==null
+                ||binding.donateType==null){
                 Toast.makeText(
                     this,
                     "Please Provide all Information Correctly!",
                     Toast.LENGTH_SHORT
                 ).show()
+            }else{
+                saveDonationData()
+
             }
-            saveDonationData()
         }
     }
 

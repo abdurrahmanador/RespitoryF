@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/about_bg"
+    tools:context=".About">
+
+    <TextView
+        android:id="@+id/aboutUSTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="About US"
+        android:textSize="35sp"
+        android:layout_marginTop="80dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/boldandika"
+        />
+
+    <TextView
+        android:id="@+id/nasimMostaqim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/aboutUSTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Nasim Mostaqim"
+        android:textSize="20sp"
+        android:layout_marginTop="100dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/boldandika"
+        />
+    <TextView
+        android:id="@+id/aboutNasimMostaqim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/nasimMostaqim"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Student of BSc. in CSE . Bug Hunter Specialist\nID: C******"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppinsreg"
+        />
+
+    <TextView
+        android:id="@+id/mirazChowdhury"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/aboutNasimMostaqim"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Miraz Chowdhury"
+        android:textSize="20sp"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/boldandika"
+        />
+    <TextView
+        android:id="@+id/aboutMirazChowdhury"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/mirazChowdhury"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Student of BSc. in CSE .Coder\nID: C******"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppinsreg"
+        />
+
+    <TextView
+        android:id="@+id/sakibulAlam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/aboutMirazChowdhury"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Sakibul Alam"
+        android:textSize="20sp"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/boldandika"
+        />
+    <TextView
+        android:id="@+id/aboutSakibulAlam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/sakibulAlam"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Student of BSc. in CSE .Programmer\nID: C******"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppinsreg"
+        />
+
+
+    <TextView
+        android:id="@+id/contactWithUs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Contact With Us at: Chace Poison!"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppinsreg"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

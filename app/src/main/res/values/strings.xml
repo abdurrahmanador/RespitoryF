@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Respitory</string>
     <string name="Respitory">Respiration</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
     <string-array name="DonationType">
         <item>40 Litre</item>
         <item>50 Litre</item>
@@ -72,5 +74,23 @@
         <item>Narail</item>
         <item>Satkhira</item>
     </string-array>
+    <string name="home">Home</string>
+    <string name="about">Assalamualikum, We are Nasim Mostakim,Miraz Chowdhury ,Shakibul Alam, Developer of this app.
+        Currently We are  pursuing BSc. degree from International Islamic University Chittagong ,
+        from the dept. of Computer Science and Engineering.
+    </string>
+    <string name="add">Add Post</string>
+    <string name="info">https://www.facebook.com/arador.arador
 
+        Cell: +8801682474757
+    </string>
+    <string name="search">Search</string>
+    <string name="notification">Notification</string>
+    <string name="profile">Profile</string>
+    <string name="homeMenu">Home</string>
+    <string name="message">Message</string>
+    <string name="searchMenu">Search</string>
+    <string name="more">More</string>
+    <string name="profileMenu">Profile</string>
+    <string name="signup">Signup</string>
 </resources>

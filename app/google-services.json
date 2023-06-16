@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "148159903276-vbrkg4i1l5u2u0u09mkuqqc76meth5le.apps.googleusercontent.com",
+          "client_id": "148159903276-jod2c7431s6rf28ugktsdbc473jt3u0b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.respitoryfinal",
+            "certificate_hash": "091152dcdf956e86ad7df4324cd61eb71b2fb919"
+          }
+        },
+        {
+          "client_id": "148159903276-tonogdd0igcbijl8i2g7n74jhvhrievh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,7 +35,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "148159903276-vbrkg4i1l5u2u0u09mkuqqc76meth5le.apps.googleusercontent.com",
+              "client_id": "148159903276-tonogdd0igcbijl8i2g7n74jhvhrievh.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recycler"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,7 +12,6 @@
         android:id="@+id/materialCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
         app:cardUseCompatPadding="true">
@@ -25,6 +23,7 @@
             app:iconifiedByDefault="false"
             app:queryBackground="@android:color/transparent"
             app:queryHint="Search by City..." />
+
     </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -33,4 +32,5 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         tools:listitem="@layout/group_donor" />
+
 </RelativeLayout>

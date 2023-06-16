@@ -1,16 +1,20 @@
 package com.example.respitoryfinal
 
+import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.widget.SearchView
 import com.example.respitoryfinal.databinding.ActivityPostBinding
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 
 class PostActivity : AppCompatActivity() {
@@ -19,99 +23,216 @@ class PostActivity : AppCompatActivity() {
     private lateinit var userArrayList: ArrayList<User>
     private lateinit var adapter: Adapter
     private lateinit var recyclerView: RecyclerView
+    private lateinit var searchView: SearchView
+    private var currentQuery: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        recyclerView=findViewById(R.id.userList)
-        recyclerView.layoutManager=LinearLayoutManager(this)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Post"
+        val blueColor = ContextCompat.getColor(this, R.color.blue)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(blueColor))
+
+        recyclerView = binding.userList
+        recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
 
-        userArrayList= arrayListOf()
-        adapter=Adapter(userArrayList)
+        userArrayList = ArrayList()
+        adapter = Adapter(userArrayList)
 
-        recyclerView.adapter=adapter
+        recyclerView.adapter = adapter
 
-        EventChangeListener()
-    }
-
-    private fun EventChangeListener(){
-        db= FirebaseFirestore.getInstance()
-        db.collection("Donor")
-            .addSnapshotListener(object: EventListener<QuerySnapshot>{
-                    override fun onEvent(
-                        value: QuerySnapshot?,
-                        error: FirebaseFirestoreException?
-                    ) {
-                        if(error!=null){
-                            Log.e("Firestore Error",error.message.toString())
-                            return
-                        }
-                        for (dc: DocumentChange in value?.documentChanges!!){
-                            if(dc.type==DocumentChange.Type.ADDED){
-                                userArrayList.add(dc.document.toObject(User::class.java))
-                            }
-                        }
-                        adapter.notifyDataSetChanged()
-                    }
-                })
-    }
-}
-/*
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityPostBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        val materialCardView = binding.materialCardView
-        val searchView = binding.searchView
-
-        userList = binding.userList
-        userList.layoutManager = LinearLayoutManager(this)
-        userListAdapter = UserListAdapter(emptyList())
-        userList.adapter = userListAdapter
-
-        searchView.setOnQueryTextListener(object : OnQueryTextListener {
+        searchView = binding.searchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                searchUsers(query)
                 return false
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                searchUsers(newText)
-                return false
+                currentQuery = newText
+                searchByCity(currentQuery)
+                return true
             }
         })
+
+        eventChangeListener()
     }
 
-    private fun searchUsers(query: String) {
+    private fun eventChangeListener() {
+        db = FirebaseFirestore.getInstance()
         db.collection("Donor")
-            .whereEqualTo("city", query)
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                val users = mutableListOf<User>()
-
-                for (documentSnapshot in querySnapshot) {
-                    val data = documentSnapshot.data
-                    val bottleType = data["bottleType"] as String
-                    val bottleNeed = data["bottleNeed"] as Long
-                    val contact = data["contact"] as String
-                    val address = data["address"] as String
-                    val exactAddress = data["exactAddress"] as String
-
-                   // val user = User(bottleType, bottleNeed, contact, address, exactAddress)
-                   // users.add(user)
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+                override fun onEvent(
+                    value: QuerySnapshot?,
+                    error: FirebaseFirestoreException?
+                ) {
+                    if (error != null) {
+                        Log.e("Firestore Error", error.message.toString())
+                        return
+                    }
+                    userArrayList.clear()
+                    for (dc: DocumentChange in value?.documentChanges!!) {
+                        if (dc.type == DocumentChange.Type.ADDED) {
+                            userArrayList.add(dc.document.toObject(User::class.java))
+                        }
+                    }
+                    adapter.notifyDataSetChanged()
                 }
-
-                userListAdapter.setUsers(users)
-            }
-            .addOnFailureListener { exception ->
-                Toast.makeText(this, "Failed! Please Try Again!", Toast.LENGTH_SHORT).show()
-            }
+            })
     }
+
+    private fun searchByCity(city: String) {
+        db.collection("Donor")
+            .orderBy("address")
+            .startAt(city)
+            .endAt(city + "\uf8ff")
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+                override fun onEvent(
+                    value: QuerySnapshot?,
+                    error: FirebaseFirestoreException?
+                ) {
+                    if (error != null) {
+                        Log.e("Firestore Error", error.message.toString())
+                        return
+                    }
+                    userArrayList.clear()
+                    for (dc: DocumentChange in value?.documentChanges!!) {
+                        if (dc.type == DocumentChange.Type.ADDED) {
+                            userArrayList.add(dc.document.toObject(User::class.java))
+                        }
+                    }
+                    adapter.notifyDataSetChanged()
+                }
+            })
+    }
+
+//    fun onCallDirectClicked(view: View) {
+//        val intent = Intent(this, DetailsActivity::class.java)
+//        startActivity(intent)
+//    }
 }
-*/
+
+
+//
+//
+//package com.example.respitoryfinal
+//
+//
+//
+//import android.content.Intent
+//import android.graphics.drawable.ColorDrawable
+//import android.os.Bundle
+//import android.util.Log
+//import androidx.appcompat.app.AppCompatActivity
+//import androidx.core.content.ContextCompat
+//import androidx.recyclerview.widget.LinearLayoutManager
+//import androidx.recyclerview.widget.RecyclerView
+//import androidx.appcompat.widget.SearchView
+//import com.example.respitoryfinal.databinding.ActivityPostBinding
+//import com.google.firebase.firestore.DocumentChange
+//import com.google.firebase.firestore.EventListener
+//import com.google.firebase.firestore.FirebaseFirestore
+//import com.google.firebase.firestore.FirebaseFirestoreException
+//import com.google.firebase.firestore.Query
+//import com.google.firebase.firestore.QuerySnapshot
+//import com.google.firebase.firestore.core.View
+//
+//class PostActivity : AppCompatActivity() {
+//    private lateinit var binding: ActivityPostBinding
+//    private lateinit var db: FirebaseFirestore
+//    private lateinit var userArrayList: ArrayList<User>
+//    private lateinit var adapter: Adapter
+//    private lateinit var recyclerView: RecyclerView
+//    private lateinit var searchView: SearchView
+//    private var currentQuery: String = ""
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        binding = ActivityPostBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
+//
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar?.title = "Post"
+//        val blueColor = ContextCompat.getColor(this, R.color.blue)
+//        supportActionBar?.setBackgroundDrawable(ColorDrawable(blueColor))
+//
+//        recyclerView = findViewById(R.id.userList)
+//        recyclerView.layoutManager = LinearLayoutManager(this)
+//        recyclerView.setHasFixedSize(true)
+//
+//        userArrayList = ArrayList()
+//        adapter = Adapter(userArrayList)
+//
+//        recyclerView.adapter = adapter
+//
+//        searchView = findViewById(R.id.searchView)
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String): Boolean {
+//                return false
+//            }
+//
+//            override fun onQueryTextChange(newText: String): Boolean {
+//                currentQuery = newText
+//                searchByCity(currentQuery)
+//                return true
+//            }
+//        })
+//
+//        EventChangeListener()
+//    }
+//
+//    private fun EventChangeListener() {
+//        db = FirebaseFirestore.getInstance()
+//        db.collection("Donor")
+//            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+//                override fun onEvent(
+//                    value: QuerySnapshot?,
+//                    error: FirebaseFirestoreException?
+//                ) {
+//                    if (error != null) {
+//                        Log.e("Firestore Error", error.message.toString())
+//                        return
+//                    }
+//                    userArrayList.clear()
+//                    for (dc: DocumentChange in value?.documentChanges!!) {
+//                        if (dc.type == DocumentChange.Type.ADDED) {
+//                            userArrayList.add(dc.document.toObject(User::class.java))
+//                        }
+//                    }
+//                    adapter.notifyDataSetChanged()
+//                }
+//            })
+//    }
+//
+//    private fun searchByCity(city: String) {
+//        db.collection("Donor")
+//            .orderBy("address")
+//            .startAt(city)
+//            .endAt(city + "\uf8ff")
+//            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+//                override fun onEvent(
+//                    value: QuerySnapshot?,
+//                    error: FirebaseFirestoreException?
+//                ) {
+//                    if (error != null) {
+//                        Log.e("Firestore Error", error.message.toString())
+//                        return
+//                    }
+//                    userArrayList.clear()
+//                    for (dc: DocumentChange in value?.documentChanges!!) {
+//                        if (dc.type == DocumentChange.Type.ADDED) {
+//                            userArrayList.add(dc.document.toObject(User::class.java))
+//                        }
+//                    }
+//                    adapter.notifyDataSetChanged()
+//                }
+//            })
+//    }
+//    fun onCallDirectClicked(view: View) {
+//        val intent = Intent(this, DetailsActivity::class.java)
+//        startActivity(intent)
+//    }
+//}
